@@ -61,7 +61,7 @@ Press `Ctrl+C` in the terminal to quit.
 
 ## Download
 
-Don't want to run from source? Grab the latest `.exe` from the [Releases](https://github.com/camrentm/tournaments-wrapped/releases) page — no Python required.
+Don't want to run from source? Grab the latest `.exe` from the [Releases](https://github.com/camrentm/tournaments-wrapped/releases) page, no Python required.
 
 > **Windows note:** You may see a SmartScreen warning on first launch. Click **More info → Run anyway**.
 
