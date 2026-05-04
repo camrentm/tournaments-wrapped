@@ -12,7 +12,6 @@ A simple desktop app that pulls every tournament you've organized on [start.gg](
 
 ## What it shows you
 
-<<<<<<< HEAD
 - 🏆 **Top 5 tournaments** — your biggest events, podium style
 - 📊 **Attendance over the years** — a chart of every event you've run
 - 📅 **How long you've been at it** — your first ever event date
@@ -23,7 +22,7 @@ A simple desktop app that pulls every tournament you've organized on [start.gg](
 - ⚡ Filters server-side via the start.gg `ownerId` field, so you only get tournaments you have created.
 - 📊 Live progress while paginating
 - 💾 One-click CSV export with native save dialog
->>>>>>> 3d8a8d8935bd8825cfa15313e2ad3df9ee78bc58
+
 
 ---
 
