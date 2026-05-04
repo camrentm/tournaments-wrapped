@@ -10,7 +10,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, request, send_from_directory
 
-from api import StartGGError, export_to_csv, fetch_owned_tournaments, lookup_user
+from api import StartGGError, compute_stats, export_to_csv, fetch_owned_tournaments, lookup_user
 
 UI_DIR = Path(__file__).parent / "ui"
 
@@ -35,7 +35,7 @@ def verify():
     body = request.get_json()
     try:
         user = lookup_user(body["token"], body["slug"])
-        return jsonify({"ok": True, "user_id": user["id"], "user_name": user.get("name") or body["slug"]})
+        return jsonify({"ok": True, "user_id": user["id"], "gamer_tag": user["gamer_tag"]})
     except StartGGError as exc:
         return jsonify({"ok": False, "error": str(exc)})
 
@@ -47,10 +47,10 @@ def fetch():
     try:
         tournaments = fetch_owned_tournaments(body["token"], body["slug"])
         _last_results = tournaments
+        stats = compute_stats(tournaments)
         return jsonify({
             "ok": True,
-            "count": len(tournaments),
-            "total_attendees": sum(t["attendees"] for t in tournaments),
+            "stats": stats,
             "tournaments": tournaments,
         })
     except StartGGError as exc:

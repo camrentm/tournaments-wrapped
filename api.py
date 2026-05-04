@@ -18,6 +18,9 @@ query GetUserId($slug: String!) {
   user(slug: $slug) {
     id
     name
+    player {
+      gamerTag
+    }
   }
 }
 """
@@ -33,8 +36,14 @@ query TournamentsByOwner($ownerId: ID!, $page: Int!) {
     nodes {
       id
       name
+      slug
       numAttendees
       startAt
+      isOnline
+      city
+      addrState
+      countryCode
+      venueName
     }
   }
 }
@@ -75,12 +84,14 @@ def _post(token: str, query: str, variables: dict) -> dict:
 
 
 def lookup_user(token: str, slug: str) -> dict:
-    """Return {'id': ..., 'name': ...} for the given user slug."""
+    """Return {'id': ..., 'name': ..., 'gamer_tag': ...} for the given user slug."""
     formatted = slug if slug.startswith("user/") else f"user/{slug}"
     data = _post(token, USER_ID_QUERY, {"slug": formatted})
     user = data.get("data", {}).get("user")
     if not user:
         raise StartGGError(f"No user found for slug '{slug}'.")
+    player = user.get("player") or {}
+    user["gamer_tag"] = player.get("gamerTag") or user.get("name") or slug
     return user
 
 
@@ -116,8 +127,14 @@ def fetch_owned_tournaments(token: str, slug: str, progress_cb=None) -> list[dic
             tournaments.append({
                 "id": t["id"],
                 "name": t["name"],
+                "slug": t.get("slug"),
                 "attendees": t["numAttendees"] or 0,
                 "start_at": t["startAt"],
+                "is_online": bool(t.get("isOnline")),
+                "city": t.get("city"),
+                "state": t.get("addrState"),
+                "country": t.get("countryCode"),
+                "venue": t.get("venueName"),
             })
 
         if progress_cb:
@@ -129,12 +146,105 @@ def fetch_owned_tournaments(token: str, slug: str, progress_cb=None) -> list[dic
     return tournaments
 
 
+def compute_stats(tournaments: list[dict]) -> dict:
+    """
+    Derive 'wrapped'-style stats from the raw tournament list.
+
+    Returns a dict shaped for direct JSON consumption by the UI.
+    """
+    if not tournaments:
+        return {
+            "count": 0,
+            "total_attendees": 0,
+            "average_attendees": 0,
+            "biggest": None,
+            "first_event": None,
+            "latest_event": None,
+            "online_count": 0,
+            "offline_count": 0,
+            "unique_cities": 0,
+            "unique_venues": 0,
+            "by_year": [],
+            "timeline": [],
+        }
+
+    total_attendees = sum(t["attendees"] for t in tournaments)
+    count = len(tournaments)
+
+    # Biggest single tournament
+    biggest = max(tournaments, key=lambda t: t["attendees"])
+
+    # Date range — only consider tournaments with a real startAt
+    dated = [t for t in tournaments if t.get("start_at")]
+    first_event = min(dated, key=lambda t: t["start_at"]) if dated else None
+    latest_event = max(dated, key=lambda t: t["start_at"]) if dated else None
+
+    # Online vs offline
+    online_count = sum(1 for t in tournaments if t["is_online"])
+    offline_count = count - online_count
+
+    # Unique cities/venues (offline only — online tournaments don't have a real city)
+    cities = {
+        f"{t['city']}, {t['state'] or t['country'] or ''}".strip(", ")
+        for t in tournaments
+        if not t["is_online"] and t.get("city")
+    }
+    venues = {t["venue"] for t in tournaments if not t["is_online"] and t.get("venue")}
+
+    # Tournaments per year (sorted asc)
+    year_counts: dict[int, dict] = {}
+    for t in dated:
+        year = time.gmtime(t["start_at"]).tm_year
+        bucket = year_counts.setdefault(year, {"year": year, "count": 0, "attendees": 0})
+        bucket["count"] += 1
+        bucket["attendees"] += t["attendees"]
+    by_year = sorted(year_counts.values(), key=lambda x: x["year"])
+
+    # Timeline: every dated tournament as a point, oldest first
+    timeline = sorted(
+        [
+            {"date": t["start_at"], "name": t["name"], "attendees": t["attendees"]}
+            for t in dated
+        ],
+        key=lambda x: x["date"],
+    )
+
+    def _summarize(t: dict | None) -> dict | None:
+        if not t:
+            return None
+        return {
+            "name": t["name"],
+            "attendees": t["attendees"],
+            "date": t.get("start_at"),
+            "slug": t.get("slug"),
+        }
+
+    return {
+        "count": count,
+        "total_attendees": total_attendees,
+        "average_attendees": round(total_attendees / count, 1),
+        "biggest": _summarize(biggest),
+        "first_event": _summarize(first_event),
+        "latest_event": _summarize(latest_event),
+        "online_count": online_count,
+        "offline_count": offline_count,
+        "unique_cities": len(cities),
+        "unique_venues": len(venues),
+        "by_year": by_year,
+        "timeline": timeline,
+    }
+
+
 def export_to_csv(tournaments: list[dict], path: str) -> str:
     """Write tournaments to a CSV file. Returns the resolved absolute path."""
     out_path = Path(path).expanduser().resolve()
     with out_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
-            f, fieldnames=["Tournament Name", "Attendees", "Start Date"]
+            f,
+            fieldnames=[
+                "Tournament Name", "Attendees", "Start Date",
+                "Online", "City", "State", "Country", "Venue",
+            ],
         )
         writer.writeheader()
         for t in tournaments:
@@ -145,5 +255,10 @@ def export_to_csv(tournaments: list[dict], path: str) -> str:
                 "Tournament Name": t["name"],
                 "Attendees": t["attendees"],
                 "Start Date": start,
+                "Online": "Yes" if t.get("is_online") else "No",
+                "City": t.get("city") or "",
+                "State": t.get("state") or "",
+                "Country": t.get("country") or "",
+                "Venue": t.get("venue") or "",
             })
     return str(out_path)

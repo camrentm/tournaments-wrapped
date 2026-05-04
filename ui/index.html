@@ -9,55 +9,101 @@
   <main class="app">
     <header class="hero">
       <h1>Tournaments Wrapped</h1>
-      <p class="subtitle">Pull every tournament you've organized and total your attendees.</p>
+      <p class="subtitle">Your year in tournaments. Let's see what you built.</p>
     </header>
 
     <section class="card" id="credentials-card">
-      <h2>Credentials</h2>
-      <p class="hint">
-        Stored only in memory for this session — never written to disk.
-        <a href="#" id="get-token-link">How do I get a token?</a>
-      </p>
+      <div id="cred-form">
+        <h2>Let's get started</h2>
+        <p class="hint">
+          Your credentials stay in memory only — never saved anywhere.
+          <a href="#" id="get-token-link">How do I get a token?</a>
+        </p>
 
-      <label>
-        API Token
-        <input type="password" id="token" placeholder="Paste your start.gg API token" autocomplete="off" />
-      </label>
+        <label>
+          API Token
+          <input type="password" id="token" placeholder="Paste your start.gg API token" autocomplete="off" />
+        </label>
 
-      <label>
-        User Slug
-        <input type="text" id="slug" placeholder="e.g. abc1234d (from your start.gg profile URL)" autocomplete="off" />
-      </label>
+        <label>
+          User Slug
+          <input type="text" id="slug" placeholder="e.g. abc1234d  — found in your start.gg profile URL" autocomplete="off" />
+        </label>
 
-      <div class="actions">
-        <button id="fetch-btn" class="primary">Fetch My Tournaments</button>
+        <div class="actions">
+          <button id="fetch-btn" class="primary">Unwrap My Stats →</button>
+        </div>
+
+        <div id="status" class="status" hidden></div>
       </div>
 
-      <div id="status" class="status" hidden></div>
+      <div id="cred-loading" class="loading-state" hidden>
+        <h2 id="loading-greeting">Hey there 👋</h2>
+        <p class="loading-sub" id="loading-sub">Hang tight — we're pulling your tournament history…</p>
+        <div class="progress-track">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p class="loading-detail" id="loading-detail">Connecting to start.gg…</p>
+      </div>
+
+      <div id="cred-done" class="done-state" hidden>
+        <span class="done-text" id="done-text">✅ Wrapped ready</span>
+        <button class="link-btn" id="rerun-btn">Run again</button>
+      </div>
     </section>
 
     <section class="card" id="results-card" hidden>
       <header class="results-header">
         <div>
-          <h2>Results</h2>
+          <h2>Here's your Wrapped</h2>
           <p class="hint" id="results-meta"></p>
         </div>
         <div class="actions">
-          <button id="save-btn" class="secondary">Save as CSV…</button>
+          <button id="save-btn" class="secondary">Export CSV…</button>
         </div>
       </header>
 
+      <!-- Hero stats -->
       <div class="totals">
         <div class="stat">
-          <span class="stat-label">Tournaments</span>
+          <span class="stat-label">Tournaments run</span>
           <span class="stat-value" id="stat-count">0</span>
         </div>
         <div class="stat">
-          <span class="stat-label">Total Attendees</span>
+          <span class="stat-label">Total attendees</span>
           <span class="stat-value" id="stat-attendees">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Avg. per event</span>
+          <span class="stat-value" id="stat-avg">0</span>
         </div>
       </div>
 
+      <!-- Highlights -->
+      <div class="highlights">
+        <div class="highlight">
+          <span class="highlight-label">🏆 Your biggest moment</span>
+          <span class="highlight-value" id="highlight-biggest">—</span>
+        </div>
+        <div class="highlight">
+          <span class="highlight-label">🗓️ You've been at it since</span>
+          <span class="highlight-value" id="highlight-since">—</span>
+        </div>
+      </div>
+
+      <!-- Podium leaderboard -->
+      <div class="podium-section">
+        <h3 class="section-label">🥇 Your Top 5 Tournaments</h3>
+        <div class="podium" id="podium"></div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-wrap">
+        <h3>Tournament Attendance Over the Years</h3>
+        <canvas id="timeline-chart"></canvas>
+      </div>
+
+      <!-- Full table -->
       <div class="table-wrap">
         <table id="results-table">
           <thead>
@@ -73,10 +119,11 @@
     </section>
 
     <footer class="foot">
-      <span>Built with PyWebView · Open source on GitHub</span>
+      <span>Tournaments Wrapped · Open source on GitHub</span>
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
