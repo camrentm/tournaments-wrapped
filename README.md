@@ -9,7 +9,7 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 
 ## What it shows you
 
-- 🏆 **Top 5 tournaments:** your top 5 largest events by attendee.
+- 🏆 **Top 5 tournaments:** your top 5 largest events by attendee
 - 📊 **Attendance over the years:** a chart of every event you've run
 - 📅 **How long you've been at it:** the date of your first ever event
 - 🎯 **Total & average attendance** across your full history
