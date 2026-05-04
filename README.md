@@ -1,6 +1,10 @@
 # Tournaments Wrapped
 
+<<<<<<< HEAD
 Your tournament history, visualized. Tournaments Wrapped pulls every event you've organized on [start.gg](https://start.gg) and turns it into a stats recap — think Spotify Wrapped, but for tournament organizers.
+=======
+A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees.
+>>>>>>> 3d8a8d8935bd8825cfa15313e2ad3df9ee78bc58
 
 ![screenshot](docs/screenshot.png)
 
@@ -8,11 +12,18 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 
 ## What it shows you
 
+<<<<<<< HEAD
 - 🏆 **Top 5 tournaments** — your biggest events, podium style
 - 📊 **Attendance over the years** — a chart of every event you've run
 - 📅 **How long you've been at it** — your first ever event date
 - 🎯 **Total & average attendance** — across your full history
 - 💾 **CSV export** — download everything for your own records
+=======
+- 🔐 Credentials stay in memory (never written to disk)
+- ⚡ Filters server-side via the start.gg `ownerId` field, so you only get tournaments you have created.
+- 📊 Live progress while paginating
+- 💾 One-click CSV export with native save dialog
+>>>>>>> 3d8a8d8935bd8825cfa15313e2ad3df9ee78bc58
 
 ---
 
