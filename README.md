@@ -8,11 +8,24 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 
 ## What it shows you
 
+<<<<<<< HEAD
 - 🏆 **Top 5 tournaments** — your biggest events, podium style
 - 📊 **Attendance over the years** — a chart of every event you've run
 - 📅 **How long you've been at it** — your first ever event date
 - 🎯 **Total & average attendance** — across your full history
 - 💾 **CSV export** — download everything for your own records
+=======
+- 🏆 **Top 5 tournaments:** your top 5 largest events by attendee
+- 📊 **Attendance over the years:** a chart of every event you've run
+- 📅 **How long you've been at it:** the date of your first ever event
+- 🎯 **Total & average attendance** across your full history
+---
+- 🔐 Credentials stay in memory (never written to disk)
+- ⚡ Filters server-side via the start.gg `ownerId` field, so you only get tournaments you have created.
+- 📊 Live progress while paginating
+- 💾 One-click CSV export with native save dialog
+
+>>>>>>> 274518d308d4463e341db821afce991f1449cd87
 
 ---
 
@@ -55,7 +68,7 @@ Press `Ctrl+C` in the terminal to quit.
 
 ## Download
 
-Don't want to run from source? Grab the latest `.exe` from the [Releases](https://github.com/camrentm/tournaments-wrapped/releases) page — no Python required.
+Don't want to run from source? Grab the latest `.exe` from the [Releases](https://github.com/camrentm/tournaments-wrapped/releases) page, no Python required.
 
 > **Windows note:** You may see a SmartScreen warning on first launch. Click **More info → Run anyway**.
 
