@@ -8,13 +8,6 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 
 ## What it shows you
 
-<<<<<<< HEAD
-- 🏆 **Top 5 tournaments** — your biggest events, podium style
-- 📊 **Attendance over the years** — a chart of every event you've run
-- 📅 **How long you've been at it** — your first ever event date
-- 🎯 **Total & average attendance** — across your full history
-- 💾 **CSV export** — download everything for your own records
-=======
 - 🏆 **Top 5 tournaments:** your top 5 largest events by attendee
 - 📊 **Attendance over the years:** a chart of every event you've run
 - 📅 **How long you've been at it:** the date of your first ever event
@@ -25,7 +18,6 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 - 📊 Live progress while paginating
 - 💾 One-click CSV export with native save dialog
 
->>>>>>> 274518d308d4463e341db821afce991f1449cd87
 
 ---
 
