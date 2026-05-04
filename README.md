@@ -1,10 +1,8 @@
 # Tournaments Wrapped
 
-<<<<<<< HEAD
 Your tournament history, visualized. Tournaments Wrapped pulls every event you've organized on [start.gg](https://start.gg) and turns it into a stats recap — think Spotify Wrapped, but for tournament organizers.
 =======
 A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees.
->>>>>>> 3d8a8d8935bd8825cfa15313e2ad3df9ee78bc58
 
 ![screenshot](docs/screenshot.png)
 
