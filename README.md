@@ -2,7 +2,6 @@
 
 Your tournament history, visualized. Tournaments Wrapped pulls every event you've created on [start.gg](https://start.gg) and turns it into a stats recap.
 =======
-A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees.
 
 ![screenshot](docs/screenshot.png)
 
