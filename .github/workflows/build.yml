@@ -28,13 +28,13 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "StartGG-Stats" --add-data "ui;ui" app.py
+          pyinstaller --noconfirm --onefile --windowed --name "Tournaments-Wrapped" --add-data "ui;ui" app.py
 
       - name: Upload EXE as artifact
         uses: actions/upload-artifact@v4
         with:
           name: StartGG-Stats-Windows
-          path: dist/StartGG-Stats.exe
+          path: dist/Tournaments-Wrapped.exe
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -42,16 +42,16 @@ jobs:
         with:
           name: "Release ${{ github.ref_name }}"
           body: |
-            ## start.gg Tournament Stats ${{ github.ref_name }}
+            ## Tournaments Wrapped ${{ github.ref_name }}
 
             ### Download
-            - **Windows:** Download `StartGG-Stats.exe` below and double-click to run.
+            - **Windows:** Download `Tournaments-Wrapped.exe` below and double-click to run.
 
             > First launch: Windows may show a SmartScreen warning.
             > Click **"More info" → "Run anyway"** to proceed.
 
             ### What's new
             See commit history for changes in this release.
-          files: dist/StartGG-Stats.exe
+          files: dist/Tournaments-Wrapped.exe
           draft: false
           prerelease: false

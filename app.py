@@ -77,7 +77,7 @@ def open_browser():
 
 if __name__ == "__main__":
     threading.Thread(target=open_browser, daemon=True).start()
-    print("Starting start.gg Tournament Stats...")
+    print("Starting Tournaments Wrapped...")
     print("Opening http://localhost:5000 in your browser.")
     print("Press Ctrl+C to quit.\n")
     app.run(port=5000, debug=False)

@@ -1,4 +1,4 @@
-# start.gg Tournament Stats
+# Tournaments Wrapped
 
 A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees — no more manually deleting rows from a spreadsheet.
 
