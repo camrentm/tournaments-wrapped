@@ -1,6 +1,6 @@
 # Tournaments Wrapped
 
-A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees — no more manually deleting rows from a spreadsheet.
+A simple desktop app that pulls every tournament you've organized on [start.gg](https://start.gg) and totals the attendees.
 
 Built with [PyWebView](https://pywebview.flowrl.com/) (Python backend, HTML/CSS/JS frontend in a native window).
 
@@ -10,11 +10,10 @@ Built with [PyWebView](https://pywebview.flowrl.com/) (Python backend, HTML/CSS/
 
 ## Features
 
-- 🔐 Credentials stay in memory — never written to disk
-- ⚡ Filters server-side via the start.gg `ownerId` field, so you only get *your* tournaments
+- 🔐 Credentials stay in memory (never written to disk)
+- ⚡ Filters server-side via the start.gg `ownerId` field, so you only get tournaments you have created.
 - 📊 Live progress while paginating
 - 💾 One-click CSV export with native save dialog
-- 🖥️ Real desktop window, no browser required
 
 ---
 
