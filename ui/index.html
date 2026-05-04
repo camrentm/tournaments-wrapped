@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>start.gg Tournament Stats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>start.gg Tournament Stats</h1>
+      <p class="subtitle">Pull every tournament you've organized and total your attendees.</p>
+    </header>
+
+    <section class="card" id="credentials-card">
+      <h2>Credentials</h2>
+      <p class="hint">
+        Stored only in memory for this session — never written to disk.
+        <a href="#" id="get-token-link">How do I get a token?</a>
+      </p>
+
+      <label>
+        API Token
+        <input type="password" id="token" placeholder="Paste your start.gg API token" autocomplete="off" />
+      </label>
+
+      <label>
+        User Slug
+        <input type="text" id="slug" placeholder="e.g. abc1234d (from your start.gg profile URL)" autocomplete="off" />
+      </label>
+
+      <div class="actions">
+        <button id="fetch-btn" class="primary">Fetch My Tournaments</button>
+      </div>
+
+      <div id="status" class="status" hidden></div>
+    </section>
+
+    <section class="card" id="results-card" hidden>
+      <header class="results-header">
+        <div>
+          <h2>Results</h2>
+          <p class="hint" id="results-meta"></p>
+        </div>
+        <div class="actions">
+          <button id="save-btn" class="secondary">Save as CSV…</button>
+        </div>
+      </header>
+
+      <div class="totals">
+        <div class="stat">
+          <span class="stat-label">Tournaments</span>
+          <span class="stat-value" id="stat-count">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Total Attendees</span>
+          <span class="stat-value" id="stat-attendees">0</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="results-table">
+          <thead>
+            <tr>
+              <th>Tournament</th>
+              <th>Date</th>
+              <th class="num">Attendees</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>Built with PyWebView · Open source on GitHub</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
