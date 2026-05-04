@@ -13,7 +13,7 @@ Your tournament history, visualized. Tournaments Wrapped pulls every event you'v
 - 📊 **Attendance over the years:** a chart of every event you've run
 - 📅 **How long you've been at it:** the date of your first ever event
 - 🎯 **Total & average attendance** across your full history
-
+---
 - 🔐 Credentials stay in memory (never written to disk)
 - ⚡ Filters server-side via the start.gg `ownerId` field, so you only get tournaments you have created.
 - 📊 Live progress while paginating
